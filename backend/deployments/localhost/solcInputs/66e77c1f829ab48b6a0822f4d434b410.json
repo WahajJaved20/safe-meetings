@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/SafeMeeting.sol": {
+      "content": "// SPDX-License-Identifier:MIT\npragma solidity ^0.8.8;\n\n/**\n * @title Safe Meetings\n * @author Wahaj Javed\n * @notice This contract is for creating an untemperable storage for board meeting contents.\n * @dev This implements simple mappings and events to accomplish the task\n */\n\ncontract SafeMeeting {\n    event WalletListed(\n        address indexed walletAddress,\n        uint256 indexed companyID\n    );\n    struct MeetingData {\n        uint256 meetingID;\n        string chairpersonName;\n        string timestamp;\n        uint256 numberOfMembers;\n        string contentHash;\n        mapping(string => string) memberToRole;\n    }\n    mapping(address => uint256) private s_addressToCompanyID;\n    mapping(address => mapping(uint256 => MeetingData))\n        private s_addressToIDToCompanyMeeting;\n\n    function storeOnChain(\n        uint256 companyID,\n        uint256 meetingID,\n        string memory chairpersonName,\n        string memory timestamp,\n        uint256 numberOfMembers,\n        string memory contentHash,\n        string[] memory memberNames,\n        string[] memory roles\n    ) public {}\n\n    /**\n     * @notice Method for registering a wallet address to allow access to company data\n     * @param walletAddress: The address of the wallet of the user\n     * @param companyID : the ID of the company\n     */\n    function addAddressToCompany(address walletAddress, uint256 companyID)\n        external\n    {\n        s_addressToCompanyID[walletAddress] = companyID;\n        emit WalletListed(walletAddress, companyID);\n    }\n\n    /* Getters */\n    function getCompanyIDFromWallet(address walletAddress)\n        external\n        view\n        returns (uint256)\n    {\n        return s_addressToCompanyID[walletAddress];\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

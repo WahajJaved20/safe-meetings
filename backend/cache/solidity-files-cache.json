@@ -1,0 +1,47 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/home/wahaj/meet_decentralizer/backend/contracts/SafeMeeting.sol": {
+      "lastModificationDate": 1659340417444,
+      "contentHash": "86602dec5cb11107fe339059908efcef",
+      "sourceName": "contracts/SafeMeeting.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.8"
+      ],
+      "artifacts": [
+        "SafeMeeting"
+      ]
+    }
+  }
+}

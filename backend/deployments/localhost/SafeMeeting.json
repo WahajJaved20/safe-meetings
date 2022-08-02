@@ -1,0 +1,281 @@
+{
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "walletAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "companyID",
+          "type": "uint256"
+        }
+      ],
+      "name": "WalletListed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "walletAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "companyID",
+          "type": "uint256"
+        }
+      ],
+      "name": "addAddressToCompany",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "walletAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getCompanyIDFromWallet",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "companyID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "meetingID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "chairpersonName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "timestamp",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "numberOfMembers",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "contentHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string[]",
+          "name": "memberNames",
+          "type": "string[]"
+        },
+        {
+          "internalType": "string[]",
+          "name": "roles",
+          "type": "string[]"
+        }
+      ],
+      "name": "storeOnChain",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x3a9ccbc91250569139975b538b9c3b676febaeffdeeec8c2774c57e10e102e9d",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "transactionIndex": 0,
+    "gasUsed": "408264",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x3ca8176839b041f5be8bfd36d63bd286dec5d3e60c109dd0fdf29c49a9921b42",
+    "transactionHash": "0x3a9ccbc91250569139975b538b9c3b676febaeffdeeec8c2774c57e10e102e9d",
+    "logs": [],
+    "blockNumber": 1,
+    "cumulativeGasUsed": "408264",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "66e77c1f829ab48b6a0822f4d434b410",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.8+commit.dddeac2f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"companyID\",\"type\":\"uint256\"}],\"name\":\"WalletListed\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"companyID\",\"type\":\"uint256\"}],\"name\":\"addAddressToCompany\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"}],\"name\":\"getCompanyIDFromWallet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"companyID\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"meetingID\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"chairpersonName\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"timestamp\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"numberOfMembers\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"contentHash\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"memberNames\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"roles\",\"type\":\"string[]\"}],\"name\":\"storeOnChain\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Wahaj Javed\",\"details\":\"This implements simple mappings and events to accomplish the task\",\"kind\":\"dev\",\"methods\":{\"addAddressToCompany(address,uint256)\":{\"params\":{\"companyID\":\": the ID of the company\",\"walletAddress\":\": The address of the wallet of the user\"}}},\"title\":\"Safe Meetings\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"addAddressToCompany(address,uint256)\":{\"notice\":\"Method for registering a wallet address to allow access to company data\"}},\"notice\":\"This contract is for creating an untemperable storage for board meeting contents.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/SafeMeeting.sol\":\"SafeMeeting\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/SafeMeeting.sol\":{\"content\":\"// SPDX-License-Identifier:MIT\\npragma solidity ^0.8.8;\\n\\n/**\\n * @title Safe Meetings\\n * @author Wahaj Javed\\n * @notice This contract is for creating an untemperable storage for board meeting contents.\\n * @dev This implements simple mappings and events to accomplish the task\\n */\\n\\ncontract SafeMeeting {\\n    event WalletListed(\\n        address indexed walletAddress,\\n        uint256 indexed companyID\\n    );\\n    struct MeetingData {\\n        uint256 meetingID;\\n        string chairpersonName;\\n        string timestamp;\\n        uint256 numberOfMembers;\\n        string contentHash;\\n        mapping(string => string) memberToRole;\\n    }\\n    mapping(address => uint256) private s_addressToCompanyID;\\n    mapping(address => mapping(uint256 => MeetingData))\\n        private s_addressToIDToCompanyMeeting;\\n\\n    function storeOnChain(\\n        uint256 companyID,\\n        uint256 meetingID,\\n        string memory chairpersonName,\\n        string memory timestamp,\\n        uint256 numberOfMembers,\\n        string memory contentHash,\\n        string[] memory memberNames,\\n        string[] memory roles\\n    ) public {}\\n\\n    /**\\n     * @notice Method for registering a wallet address to allow access to company data\\n     * @param walletAddress: The address of the wallet of the user\\n     * @param companyID : the ID of the company\\n     */\\n    function addAddressToCompany(address walletAddress, uint256 companyID)\\n        external\\n    {\\n        s_addressToCompanyID[walletAddress] = companyID;\\n        emit WalletListed(walletAddress, companyID);\\n    }\\n\\n    /* Getters */\\n    function getCompanyIDFromWallet(address walletAddress)\\n        external\\n        view\\n        returns (uint256)\\n    {\\n        return s_addressToCompanyID[walletAddress];\\n    }\\n}\\n\",\"keccak256\":\"0x439bcc1bb497b286127380b5c4108f2730cebfab2572052b11fedb0ea1ba4303\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061066e806100206000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806387181a6614610046578063b5ed1a0d14610062578063fb3858d514610092575b600080fd5b610060600480360381019061005b9190610401565b6100ae565b005b61007c600480360381019061007791906105a1565b6100b8565b60405161008991906105dd565b60405180910390f35b6100ac60048036038101906100a791906105f8565b610100565b005b5050505050505050565b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b806000808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550808273ffffffffffffffffffffffffffffffffffffffff167fddae5033827d91d189243ddc6c9ea3e1a45dc59a9f20caa36990f6ba2f62753060405160405180910390a35050565b6000604051905090565b600080fd5b600080fd5b6000819050919050565b6101b28161019f565b81146101bd57600080fd5b50565b6000813590506101cf816101a9565b92915050565b600080fd5b600080fd5b6000601f19601f8301169050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b610228826101df565b810181811067ffffffffffffffff82111715610247576102466101f0565b5b80604052505050565b600061025a61018b565b9050610266828261021f565b919050565b600067ffffffffffffffff821115610286576102856101f0565b5b61028f826101df565b9050602081019050919050565b82818337600083830152505050565b60006102be6102b98461026b565b610250565b9050828152602081018484840111156102da576102d96101da565b5b6102e584828561029c565b509392505050565b600082601f830112610302576103016101d5565b5b81356103128482602086016102ab565b91505092915050565b600067ffffffffffffffff821115610336576103356101f0565b5b602082029050602081019050919050565b600080fd5b600061035f61035a8461031b565b610250565b9050808382526020820190506020840283018581111561038257610381610347565b5b835b818110156103c957803567ffffffffffffffff8111156103a7576103a66101d5565b5b8086016103b489826102ed565b85526020850194505050602081019050610384565b5050509392505050565b600082601f8301126103e8576103e76101d5565b5b81356103f884826020860161034c565b91505092915050565b600080600080600080600080610100898b03121561042257610421610195565b5b60006104308b828c016101c0565b98505060206104418b828c016101c0565b975050604089013567ffffffffffffffff8111156104625761046161019a565b5b61046e8b828c016102ed565b965050606089013567ffffffffffffffff81111561048f5761048e61019a565b5b61049b8b828c016102ed565b95505060806104ac8b828c016101c0565b94505060a089013567ffffffffffffffff8111156104cd576104cc61019a565b5b6104d98b828c016102ed565b93505060c089013567ffffffffffffffff8111156104fa576104f961019a565b5b6105068b828c016103d3565b92505060e089013567ffffffffffffffff8111156105275761052661019a565b5b6105338b828c016103d3565b9150509295985092959890939650565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061056e82610543565b9050919050565b61057e81610563565b811461058957600080fd5b50565b60008135905061059b81610575565b92915050565b6000602082840312156105b7576105b6610195565b5b60006105c58482850161058c565b91505092915050565b6105d78161019f565b82525050565b60006020820190506105f260008301846105ce565b92915050565b6000806040838503121561060f5761060e610195565b5b600061061d8582860161058c565b925050602061062e858286016101c0565b915050925092905056fea26469706673582212201546abd74d02b9d7ab617333ced58ec0a29a5f2177ab8c8d2a02f4477bde54e164736f6c63430008080033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c806387181a6614610046578063b5ed1a0d14610062578063fb3858d514610092575b600080fd5b610060600480360381019061005b9190610401565b6100ae565b005b61007c600480360381019061007791906105a1565b6100b8565b60405161008991906105dd565b60405180910390f35b6100ac60048036038101906100a791906105f8565b610100565b005b5050505050505050565b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b806000808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550808273ffffffffffffffffffffffffffffffffffffffff167fddae5033827d91d189243ddc6c9ea3e1a45dc59a9f20caa36990f6ba2f62753060405160405180910390a35050565b6000604051905090565b600080fd5b600080fd5b6000819050919050565b6101b28161019f565b81146101bd57600080fd5b50565b6000813590506101cf816101a9565b92915050565b600080fd5b600080fd5b6000601f19601f8301169050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b610228826101df565b810181811067ffffffffffffffff82111715610247576102466101f0565b5b80604052505050565b600061025a61018b565b9050610266828261021f565b919050565b600067ffffffffffffffff821115610286576102856101f0565b5b61028f826101df565b9050602081019050919050565b82818337600083830152505050565b60006102be6102b98461026b565b610250565b9050828152602081018484840111156102da576102d96101da565b5b6102e584828561029c565b509392505050565b600082601f830112610302576103016101d5565b5b81356103128482602086016102ab565b91505092915050565b600067ffffffffffffffff821115610336576103356101f0565b5b602082029050602081019050919050565b600080fd5b600061035f61035a8461031b565b610250565b9050808382526020820190506020840283018581111561038257610381610347565b5b835b818110156103c957803567ffffffffffffffff8111156103a7576103a66101d5565b5b8086016103b489826102ed565b85526020850194505050602081019050610384565b5050509392505050565b600082601f8301126103e8576103e76101d5565b5b81356103f884826020860161034c565b91505092915050565b600080600080600080600080610100898b03121561042257610421610195565b5b60006104308b828c016101c0565b98505060206104418b828c016101c0565b975050604089013567ffffffffffffffff8111156104625761046161019a565b5b61046e8b828c016102ed565b965050606089013567ffffffffffffffff81111561048f5761048e61019a565b5b61049b8b828c016102ed565b95505060806104ac8b828c016101c0565b94505060a089013567ffffffffffffffff8111156104cd576104cc61019a565b5b6104d98b828c016102ed565b93505060c089013567ffffffffffffffff8111156104fa576104f961019a565b5b6105068b828c016103d3565b92505060e089013567ffffffffffffffff8111156105275761052661019a565b5b6105338b828c016103d3565b9150509295985092959890939650565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061056e82610543565b9050919050565b61057e81610563565b811461058957600080fd5b50565b60008135905061059b81610575565b92915050565b6000602082840312156105b7576105b6610195565b5b60006105c58482850161058c565b91505092915050565b6105d78161019f565b82525050565b60006020820190506105f260008301846105ce565b92915050565b6000806040838503121561060f5761060e610195565b5b600061061d8582860161058c565b925050602061062e858286016101c0565b915050925092905056fea26469706673582212201546abd74d02b9d7ab617333ced58ec0a29a5f2177ab8c8d2a02f4477bde54e164736f6c63430008080033",
+  "devdoc": {
+    "author": "Wahaj Javed",
+    "details": "This implements simple mappings and events to accomplish the task",
+    "kind": "dev",
+    "methods": {
+      "addAddressToCompany(address,uint256)": {
+        "params": {
+          "companyID": ": the ID of the company",
+          "walletAddress": ": The address of the wallet of the user"
+        }
+      }
+    },
+    "title": "Safe Meetings",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "addAddressToCompany(address,uint256)": {
+        "notice": "Method for registering a wallet address to allow access to company data"
+      }
+    },
+    "notice": "This contract is for creating an untemperable storage for board meeting contents.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 27,
+        "contract": "contracts/SafeMeeting.sol:SafeMeeting",
+        "label": "s_addressToCompanyID",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 34,
+        "contract": "contracts/SafeMeeting.sol:SafeMeeting",
+        "label": "s_addressToIDToCompanyMeeting",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_mapping(t_uint256,t_struct(MeetingData)23_storage))"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_mapping(t_uint256,t_struct(MeetingData)23_storage))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(uint256 => struct SafeMeeting.MeetingData))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_struct(MeetingData)23_storage)"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_string_memory_ptr,t_string_storage)": {
+        "encoding": "mapping",
+        "key": "t_string_memory_ptr",
+        "label": "mapping(string => string)",
+        "numberOfBytes": "32",
+        "value": "t_string_storage"
+      },
+      "t_mapping(t_uint256,t_struct(MeetingData)23_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct SafeMeeting.MeetingData)",
+        "numberOfBytes": "32",
+        "value": "t_struct(MeetingData)23_storage"
+      },
+      "t_string_memory_ptr": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(MeetingData)23_storage": {
+        "encoding": "inplace",
+        "label": "struct SafeMeeting.MeetingData",
+        "members": [
+          {
+            "astId": 10,
+            "contract": "contracts/SafeMeeting.sol:SafeMeeting",
+            "label": "meetingID",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12,
+            "contract": "contracts/SafeMeeting.sol:SafeMeeting",
+            "label": "chairpersonName",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 14,
+            "contract": "contracts/SafeMeeting.sol:SafeMeeting",
+            "label": "timestamp",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 16,
+            "contract": "contracts/SafeMeeting.sol:SafeMeeting",
+            "label": "numberOfMembers",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 18,
+            "contract": "contracts/SafeMeeting.sol:SafeMeeting",
+            "label": "contentHash",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 22,
+            "contract": "contracts/SafeMeeting.sol:SafeMeeting",
+            "label": "memberToRole",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_string_memory_ptr,t_string_storage)"
+          }
+        ],
+        "numberOfBytes": "192"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
