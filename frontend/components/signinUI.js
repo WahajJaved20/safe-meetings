@@ -1,6 +1,48 @@
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
-export default function SignIn() {
+import { useNotification } from "web3uikit";
+export default function SignIn({ properties }) {
+  const dispatch = useNotification();
+  const Router = useRouter();
+  let [isAdmin, setAdmin] = useState(false);
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  async function handleSignIn() {
+    let verify = false;
+    for (let i = 0; i < properties.length; i++) {
+      console.log(properties[i]["email"] == email.toString());
+      console.log(properties[i]["password"] == password.toString());
+      console.log(properties[i]["isAdmin"] == isAdmin.toString());
+      if (
+        properties[i]["email"] == email.toString() &&
+        properties[i]["password"] == password.toString() &&
+        properties[i]["isAdmin"] == isAdmin
+      ) {
+        verify = true;
+        break;
+      }
+    }
+    if (verify) {
+      Router.push(isAdmin ? "/admin-dashboard" : "/user-dashboard");
+    } else {
+      dispatch({
+        type: "error",
+        message: "Wrong ID or Password",
+        position: "topR",
+        title: "Invalid Credentials",
+      });
+    }
+  }
+  function handleAdmin() {
+    setAdmin(true);
+  }
+  function handleUser() {
+    setAdmin(false);
+  }
+
+  useEffect(() => {}, [isAdmin]);
   return (
     <div className="w-3/5 p-5">
       <div className="text-left font-bold text-2xl">
@@ -10,11 +52,30 @@ export default function SignIn() {
         <h2 className="text-2xl font-bold text-blue-800 mb-1 mt-5">
           Sign in to your account
         </h2>
-        <div className="border-4 w-10 border-blue-800 inline-block mb-2" />
+        {isAdmin ? (
+          <div>
+            <a href="#" onClick={handleUser} className="font-bold">
+              <span>User</span>
+            </a>
+            <span className="ml-12 mr-12 text-gray-500">|</span>
+            <span className="text-blue-800 font-bold">Admin</span>
+          </div>
+        ) : (
+          <div>
+            <span className="text-blue-800 font-bold">User</span>
+
+            <span className="ml-12 mr-12 text-gray-500">|</span>
+            <a href="#" onClick={handleAdmin}>
+              <span className="font-bold">Admin</span>
+            </a>
+          </div>
+        )}
+
         <div className="flex flex-col items-center mb-3">
           <div className="bg-gray-100 w-64 p-2 mb-3 flex items-center">
             <FaRegEnvelope className="text-gray-400 m-2" />
             <input
+              onChange={() => setEmail(event.target.value)}
               type="email"
               name="email"
               placeholder="Email"
@@ -24,6 +85,7 @@ export default function SignIn() {
           <div className="bg-gray-100 w-64 p-2 flex items-center">
             <MdLockOutline className="text-gray-400 m-2" />
             <input
+              onChange={() => setPassword(event.target.value)}
               type="password"
               name="password"
               placeholder="Password"
@@ -39,12 +101,13 @@ export default function SignIn() {
               Forgot Password
             </a>
           </div>
-          <a
+          <button
             href="#"
+            onClick={handleSignIn}
             className="border-2 border-blue-800 rounded-full text-blue-800 px-12 py-2 inline-block font-semibold hover:bg-blue-800 hover:text-white"
           >
             Sign In
-          </a>
+          </button>
         </div>
       </div>
     </div>
