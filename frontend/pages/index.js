@@ -2,7 +2,6 @@ import SignUp from "../components/signupUI";
 import SignIn from "../components/signinUI";
 import { connectToDatabase } from "../utils/dbConnection";
 export default function Home({ properties }) {
-  console.log(properties);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">

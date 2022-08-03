@@ -12,20 +12,19 @@ export default function SignIn({ properties }) {
   async function handleSignIn() {
     let verify = false;
     for (let i = 0; i < properties.length; i++) {
-      console.log(properties[i]["email"] == email.toString());
-      console.log(properties[i]["password"] == password.toString());
-      console.log(properties[i]["isAdmin"] == isAdmin.toString());
       if (
         properties[i]["email"] == email.toString() &&
         properties[i]["password"] == password.toString() &&
         properties[i]["isAdmin"] == isAdmin
       ) {
+        localStorage.setItem("id", properties[i]["_id"]);
+        localStorage.setItem("admin", properties[i]["isAdmin"]);
         verify = true;
         break;
       }
     }
     if (verify) {
-      Router.push(isAdmin ? "/admin-dashboard" : "/user-dashboard");
+      Router.push(isAdmin ? "/admindashboard" : "/userdashboard");
     } else {
       dispatch({
         type: "error",
