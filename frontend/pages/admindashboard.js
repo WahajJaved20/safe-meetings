@@ -1,10 +1,12 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
 import CompanyBox from "../components/companyBox";
-
-export default function adminDashboard() {
+import Header from "../components/Header";
+export default function userDashboard() {
+  const Router = useRouter();
+  const id = Router.query["_id"];
   let [listOfCompanies, setList] = useState([]);
-  async function getCompanyData(id) {
+  async function getCompanyData() {
     const formInput = { id: id };
     const response = await fetch("/api/getCompanies", {
       method: "POST",
@@ -17,13 +19,9 @@ export default function adminDashboard() {
     await setList(result["body"]);
   }
   let windows = typeof window;
+
   useEffect(() => {
-    if (!listOfCompanies.length) {
-      if (windows !== "undefined") {
-        const id = localStorage.getItem("id");
-        getCompanyData(id);
-      }
-    }
+    if (!listOfCompanies.length) getCompanyData();
   }, [windows, listOfCompanies]);
   return (
     <div>

@@ -4,9 +4,8 @@ import { Card } from "web3uikit";
 export default function CompanyBox({ company }) {
   const Router = useRouter();
   const comp = company[0];
-  async function handleCardClick() {
-    localStorage.setItem("toAccess", comp["_id"]);
-    Router.push("/contents");
+  function handleCardClick() {
+    Router.push({ pathname: "/contents", query: comp });
   }
   return (
     <div className="w-72 p-2">

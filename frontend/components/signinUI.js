@@ -11,20 +11,23 @@ export default function SignIn({ properties }) {
   let [password, setPassword] = useState("");
   async function handleSignIn() {
     let verify = false;
+    let currentUser;
     for (let i = 0; i < properties.length; i++) {
       if (
         properties[i]["email"] == email.toString() &&
         properties[i]["password"] == password.toString() &&
         properties[i]["isAdmin"] == isAdmin
       ) {
-        localStorage.setItem("id", properties[i]["_id"]);
-        localStorage.setItem("admin", properties[i]["isAdmin"]);
+        currentUser = properties[i];
         verify = true;
         break;
       }
     }
     if (verify) {
-      Router.push(isAdmin ? "/admindashboard" : "/userdashboard");
+      Router.push({
+        pathname: isAdmin ? "/admindashboard" : "/userdashboard",
+        query: currentUser,
+      });
     } else {
       dispatch({
         type: "error",
