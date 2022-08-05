@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/wahaj/meet_decentralizer/backend/contracts/SafeMeeting.sol": {
-      "lastModificationDate": 1659340417444,
-      "contentHash": "86602dec5cb11107fe339059908efcef",
+      "lastModificationDate": 1659711338841,
+      "contentHash": "429873522cc9941a8991cf6aedeba195",
       "sourceName": "contracts/SafeMeeting.sol",
       "solcConfig": {
         "version": "0.8.8",

@@ -72,28 +72,6 @@ const { developmentChains } = require("../helper-hardhat-config");
             safeMeeting.addAddressToCompany(player.address, testID)
           ).to.be.revertedWith("AlreadyListed");
         });
-        it("ID Exists", async function () {
-          const testID = "0";
-          const transaction = await safeMeeting.addAddressToCompany(
-            deployer,
-            testID
-          );
-          await transaction.wait(1);
-          const tx = await safeMeeting.storeContent(
-            testID,
-            0,
-            "A",
-            "1:2:3",
-            2,
-            "abcdefg",
-            ["a", "b", "c"],
-            ["d", "e", "f"]
-          );
-          await tx.wait(1);
-          expect(safeMeeting.getMeetingData(testID, 1)).to.be.revertedWith(
-            "MeetingNotListed"
-          );
-        });
       });
       describe("Testing if data is stored correctly", function () {
         it("Store and Returns correct data", async function () {
@@ -102,17 +80,6 @@ const { developmentChains } = require("../helper-hardhat-config");
             0
           );
           await transaction.wait(1);
-          let tx = await safeMeeting.storeContent(
-            0,
-            0,
-            "A",
-            "1:2:3",
-            3,
-            "abcdefg",
-            ["a", "b", "c"],
-            ["d", "e", "f"]
-          );
-          await tx.wait(1);
           tx = await safeMeeting.storeContent(
             0,
             1,
@@ -125,7 +92,7 @@ const { developmentChains } = require("../helper-hardhat-config");
           );
           await tx.wait(1);
           const recievedData = await safeMeeting.getMeetingData(0, 1);
-          assert.equal(recievedData.meetingID.toString(), "1");
+
           assert.equal(recievedData.chairpersonName, "B");
           assert.equal(recievedData.timestamp, "1:2:3");
           assert.equal(recievedData.numberOfMembers.toString(), "1");

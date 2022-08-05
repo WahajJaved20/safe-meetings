@@ -2,12 +2,12 @@
 pragma solidity ^0.8.8;
 
 /* Errors */
-error SafeMeeting__DoesNotHaveAccess(address walletAddress, uint256 companyID);
-error SafeMeeting__AlreadyListed(address walletAddress, uint256 companyID);
+error SafeMeeting__DoesNotHaveAccess(address walletAddress, string companyID);
+error SafeMeeting__AlreadyListed(address walletAddress, string companyID);
 error SafeMeeting__MeetingNotListed(
     address walletAddress,
-    uint256 companyID,
-    uint256 meetingID
+    string companyID,
+    string meetingID
 );
 
 /**
@@ -18,9 +18,15 @@ error SafeMeeting__MeetingNotListed(
  */
 contract SafeMeeting {
     /* Events */
-    event WalletListed(
-        address indexed walletAddress,
-        uint256 indexed companyID
+    event WalletListed(address indexed walletAddress, string indexed companyID);
+    event DataUploaded(
+        string indexed companyID,
+        string indexed meetingID,
+        string chairpersonName,
+        string timestamp,
+        uint256 numberOfMembers,
+        string indexed contentHash,
+        MemberRole[] memberToRoles
     );
     /* Structures */
     struct MemberRole {
@@ -28,7 +34,7 @@ contract SafeMeeting {
         string memberRole;
     }
     struct MeetingData {
-        uint256 meetingID;
+        string meetingID;
         string chairpersonName;
         string timestamp;
         uint256 numberOfMembers;
@@ -37,15 +43,15 @@ contract SafeMeeting {
     }
     /* State Variables*/
     // List of the company IDs accessible to the specific wallet
-    mapping(address => uint256[]) private s_addressToCompanyID;
+    mapping(address => string[]) private s_addressToCompanyID;
     // the company ID pointing to the data of the meetings list
-    mapping(uint256 => MeetingData[]) private s_idToMeetingData;
+    mapping(string => mapping(string => MeetingData)) private s_idToMeetingData;
     /* Modifiers */
-    modifier hasAccess(address walletAddress, uint256 companyID) {
-        uint256[] memory arr = s_addressToCompanyID[walletAddress];
+    modifier hasAccess(address walletAddress, string memory companyID) {
+        string[] memory arr = s_addressToCompanyID[walletAddress];
         bool exists = false;
         for (uint256 i = 0; i < arr.length; i++) {
-            if (arr[i] == companyID) {
+            if (keccak256(bytes(arr[i])) == keccak256(bytes(companyID))) {
                 exists = true;
                 break;
             }
@@ -55,28 +61,17 @@ contract SafeMeeting {
         }
         _;
     }
-    modifier alreadyListed(address walletAddress, uint256 companyID) {
-        uint256[] memory arr = s_addressToCompanyID[walletAddress];
+    modifier alreadyListed(address walletAddress, string memory companyID) {
+        string[] memory arr = s_addressToCompanyID[walletAddress];
         bool exists = false;
         for (uint256 i = 0; i < arr.length; i++) {
-            if (arr[i] == companyID) {
+            if (keccak256(bytes(arr[i])) == keccak256(bytes(companyID))) {
                 exists = true;
                 break;
             }
         }
         if (exists) {
             revert SafeMeeting__AlreadyListed(walletAddress, companyID);
-        }
-        _;
-    }
-    modifier IDExists(uint256 companyID, uint256 meetingID) {
-        MeetingData[] memory arr = s_idToMeetingData[companyID];
-        if (meetingID >= arr.length) {
-            revert SafeMeeting__MeetingNotListed(
-                msg.sender,
-                companyID,
-                meetingID
-            );
         }
         _;
     }
@@ -93,8 +88,8 @@ contract SafeMeeting {
      * @param roles: The List of the roles of all members
      */
     function storeContent(
-        uint256 companyID,
-        uint256 meetingID,
+        string memory companyID,
+        string memory meetingID,
         string memory chairpersonName,
         string memory timestamp,
         uint256 numberOfMembers,
@@ -102,7 +97,7 @@ contract SafeMeeting {
         string[] memory memberNames,
         string[] memory roles
     ) public hasAccess(msg.sender, companyID) {
-        MeetingData storage meetData = s_idToMeetingData[companyID].push();
+        MeetingData storage meetData = s_idToMeetingData[companyID][meetingID];
         meetData.meetingID = meetingID;
         meetData.chairpersonName = chairpersonName;
         meetData.timestamp = timestamp;
@@ -113,6 +108,15 @@ contract SafeMeeting {
             MemberRole memory mem = MemberRole(memberNames[i], roles[i]);
             meetData.memberToRoles[i] = mem;
         }
+        emit DataUploaded(
+            companyID,
+            meetingID,
+            chairpersonName,
+            timestamp,
+            numberOfMembers,
+            contentHash,
+            meetData.memberToRoles
+        );
     }
 
     /**
@@ -121,11 +125,10 @@ contract SafeMeeting {
      * @param meetingID : the ID of the meeting to be accessed
      * @return The requested meeting data
      */
-    function getMeetingData(uint256 companyID, uint256 meetingID)
+    function getMeetingData(string memory companyID, string memory meetingID)
         public
         view
         hasAccess(msg.sender, companyID)
-        IDExists(companyID, meetingID)
         returns (MeetingData memory)
     {
         return s_idToMeetingData[companyID][meetingID];
@@ -136,7 +139,7 @@ contract SafeMeeting {
      * @param walletAddress: The address of the wallet of the user
      * @param companyID : the ID of the company
      */
-    function addAddressToCompany(address walletAddress, uint256 companyID)
+    function addAddressToCompany(address walletAddress, string memory companyID)
         external
         alreadyListed(walletAddress, companyID)
     {
@@ -152,7 +155,7 @@ contract SafeMeeting {
     function getCompanyIDFromWallet(address walletAddress)
         external
         view
-        returns (uint256[] memory)
+        returns (string[] memory)
     {
         return s_addressToCompanyID[walletAddress];
     }

@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/SafeMeeting.sol": {
+      "content": "// SPDX-License-Identifier:MIT\npragma solidity ^0.8.8;\n\n/* Errors */\nerror SafeMeeting__DoesNotHaveAccess(address walletAddress, string companyID);\nerror SafeMeeting__AlreadyListed(address walletAddress, string companyID);\nerror SafeMeeting__MeetingNotListed(\n    address walletAddress,\n    string companyID,\n    uint256 meetingID\n);\n\n/**\n * @title Safe Meetings\n * @author Wahaj Javed\n * @notice This contract is for creating an untemperable storage for board meeting contents.\n * @dev This implements simple mappings and events to accomplish the task\n */\ncontract SafeMeeting {\n    /* Events */\n    event WalletListed(address indexed walletAddress, string indexed companyID);\n    /* Structures */\n    struct MemberRole {\n        string memberName;\n        string memberRole;\n    }\n    struct MeetingData {\n        uint256 meetingID;\n        string chairpersonName;\n        string timestamp;\n        uint256 numberOfMembers;\n        string contentHash;\n        MemberRole[] memberToRoles;\n    }\n    /* State Variables*/\n    // List of the company IDs accessible to the specific wallet\n    mapping(address => string[]) private s_addressToCompanyID;\n    // the company ID pointing to the data of the meetings list\n    mapping(string => MeetingData[]) private s_idToMeetingData;\n    /* Modifiers */\n    modifier hasAccess(address walletAddress, string memory companyID) {\n        string[] memory arr = s_addressToCompanyID[walletAddress];\n        bool exists = false;\n        for (uint256 i = 0; i < arr.length; i++) {\n            if (keccak256(bytes(arr[i])) == keccak256(bytes(companyID))) {\n                exists = true;\n                break;\n            }\n        }\n        if (!exists) {\n            revert SafeMeeting__DoesNotHaveAccess(walletAddress, companyID);\n        }\n        _;\n    }\n    modifier alreadyListed(address walletAddress, string memory companyID) {\n        string[] memory arr = s_addressToCompanyID[walletAddress];\n        bool exists = false;\n        for (uint256 i = 0; i < arr.length; i++) {\n            if (keccak256(bytes(arr[i])) == keccak256(bytes(companyID))) {\n                exists = true;\n                break;\n            }\n        }\n        if (exists) {\n            revert SafeMeeting__AlreadyListed(walletAddress, companyID);\n        }\n        _;\n    }\n    modifier IDExists(string memory companyID, uint256 meetingID) {\n        MeetingData[] memory arr = s_idToMeetingData[companyID];\n        if (meetingID >= arr.length) {\n            revert SafeMeeting__MeetingNotListed(\n                msg.sender,\n                companyID,\n                meetingID\n            );\n        }\n        _;\n    }\n\n    /**\n     * @notice : Method for storing the meeting data into the specific company ID List\n     * @param companyID: The ID of the company\n     * @param meetingID: The ID of the meeting recieved from the database\n     * @param chairpersonName: The Name of the chairperson in the meeting\n     * @param timestamp: The time at which meeting was held\n     * @param numberOfMembers: The number of members who attended the meeting\n     * @param contentHash: The Hash value of the content PDF\n     * @param memberNames: The List of the names of all members\n     * @param roles: The List of the roles of all members\n     */\n    function storeContent(\n        string memory companyID,\n        uint256 meetingID,\n        string memory chairpersonName,\n        string memory timestamp,\n        uint256 numberOfMembers,\n        string memory contentHash,\n        string[] memory memberNames,\n        string[] memory roles\n    ) public hasAccess(msg.sender, companyID) {\n        MeetingData storage meetData = s_idToMeetingData[companyID].push();\n        meetData.meetingID = meetingID;\n        meetData.chairpersonName = chairpersonName;\n        meetData.timestamp = timestamp;\n        meetData.numberOfMembers = numberOfMembers;\n        meetData.contentHash = contentHash;\n        for (uint256 i = 0; i < memberNames.length; i++) {\n            meetData.memberToRoles.push();\n            MemberRole memory mem = MemberRole(memberNames[i], roles[i]);\n            meetData.memberToRoles[i] = mem;\n        }\n    }\n\n    /**\n     * @notice : Method for returning the requested meeting data\n     * @param companyID: the ID of the company\n     * @param meetingID : the ID of the meeting to be accessed\n     * @return The requested meeting data\n     */\n    function getMeetingData(string memory companyID, uint256 meetingID)\n        public\n        view\n        hasAccess(msg.sender, companyID)\n        IDExists(companyID, meetingID)\n        returns (MeetingData memory)\n    {\n        return s_idToMeetingData[companyID][meetingID];\n    }\n\n    /**\n     * @notice Method for registering a wallet address to allow access to company data\n     * @param walletAddress: The address of the wallet of the user\n     * @param companyID : the ID of the company\n     */\n    function addAddressToCompany(address walletAddress, string memory companyID)\n        external\n        alreadyListed(walletAddress, companyID)\n    {\n        s_addressToCompanyID[walletAddress].push(companyID);\n        emit WalletListed(walletAddress, companyID);\n    }\n\n    /**\n     * @notice Method for returning the list of company IDs accessible to the user\n     * @param walletAddress: The address of the wallet of the user\n     * @return The list of company IDs\n     */\n    function getCompanyIDFromWallet(address walletAddress)\n        external\n        view\n        returns (string[] memory)\n    {\n        return s_addressToCompanyID[walletAddress];\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

@@ -75,28 +75,6 @@ developmentChains.includes(network.name)
             safeMeeting.addAddressToCompany(player.address, testID)
           ).to.be.revertedWith("AlreadyListed");
         });
-        it("ID Exists", async function () {
-          const testID = "0";
-          const transaction = await safeMeeting.addAddressToCompany(
-            deployer,
-            testID
-          );
-          await transaction.wait(1);
-          const tx = await safeMeeting.storeContent(
-            testID,
-            0,
-            "A",
-            "1:2:3",
-            2,
-            "abcdefg",
-            ["a", "b", "c"],
-            ["d", "e", "f"]
-          );
-          await tx.wait(1);
-          expect(safeMeeting.getMeetingData(testID, 1)).to.be.revertedWith(
-            "MeetingNotListed"
-          );
-        });
       });
       describe("Testing if data is stored correctly", function () {
         it("Store and Returns correct data", async function () {

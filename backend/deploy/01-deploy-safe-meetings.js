@@ -24,7 +24,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     from: deployer,
     log: true,
     args: args,
-    waitConfirmations: network.config.blockConfirmations || 1,
+    waitConfirmations: 4,
   });
   if (
     !developmentChains.includes(network.name) &&
