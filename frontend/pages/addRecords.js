@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { Button, ConnectButton, Form, useNotification } from "web3uikit";
+import { encryptData } from "../utils/keyGenerator";
 import Header from "../components/Header";
 import contractAbi from "../constants/contractAbi.json";
 import networkMapping from "../constants/networkMapping.json";
@@ -102,11 +103,8 @@ export default function addRecords() {
       pinningSuccess();
       const formInput = {
         companyID: company["_id"],
-        chairperson: chairpersonName,
         date: dateOfMeeting,
         memberCount: numberOfMembers,
-        members: members,
-        roles: roles,
         contentHash: ImgHash,
       };
 
@@ -131,14 +129,13 @@ export default function addRecords() {
       });
       const re = await res.json();
       const meetId = re["body"];
-      console.log(meetId);
       await updateChain(
         company["_id"],
         meetId,
-        chairpersonName,
-        formInput.date[0],
+        encryptData(company["privateKey"], chairpersonName),
+        encryptData(company["privateKey"], formInput.date[0]),
         numberOfMembers,
-        ImgHash,
+        encryptData(company["privateKey"], ImgHash),
         members,
         roles
       );

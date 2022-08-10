@@ -7,7 +7,9 @@ export default function content() {
   function handleAddRecord() {
     Router.push({ pathname: "/addRecords", query: company });
   }
-  function handleViewRecords() {}
+  function handleViewRecords() {
+    Router.push({ pathname: "/viewRecords", query: company });
+  }
   return (
     <div>
       <Header />

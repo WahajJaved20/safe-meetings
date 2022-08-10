@@ -79,7 +79,6 @@ export default function SignUp() {
         "content-Type": "application/json",
       },
     });
-    const result = await response.json();
     dispatch({
       type: "success",
       message: "Account Creation Successfull",

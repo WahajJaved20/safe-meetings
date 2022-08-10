@@ -6,21 +6,22 @@ export default function userDashboard() {
   const Router = useRouter();
   const id = Router.query["_id"];
   let [listOfCompanies, setList] = useState([]);
-  async function getCompanyData() {
-    const formInput = { id: id };
-    const response = await fetch("/api/getCompanies", {
-      method: "POST",
-      body: JSON.stringify(formInput),
-      headers: {
-        "content-Type": "application/json",
-      },
-    });
-    const result = await response.json();
-    await setList(result["body"]);
-  }
+
   let windows = typeof window;
 
   useEffect(() => {
+    async function getCompanyData() {
+      const formInput = { id: id };
+      const response = await fetch("/api/getCompanies", {
+        method: "POST",
+        body: JSON.stringify(formInput),
+        headers: {
+          "content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+      setList(result["body"]);
+    }
     if (!listOfCompanies.length) getCompanyData();
   }, [windows, listOfCompanies]);
   return (

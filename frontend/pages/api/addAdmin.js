@@ -1,4 +1,5 @@
 import { connectToDatabase } from "../../utils/dbConnection";
+import { generatePair } from "../../utils/keyGenerator";
 export default async function addAdmin(req, res) {
   const { db } = await connectToDatabase();
 
@@ -12,8 +13,14 @@ export default async function addAdmin(req, res) {
     }
   }
   if (!exists) {
+    const keyPair = generatePair();
     const coll = await db.collection("Company");
-    const company = await coll.insertOne({ name: req.body["companyName"] });
+    const companyInfo = {
+      name: req.body["companyName"],
+      publicKey: keyPair[0],
+      privateKey: keyPair[1],
+    };
+    const company = await coll.insertOne(companyInfo);
   }
   const newCompanyCollection = await db
     .collection("Company")
