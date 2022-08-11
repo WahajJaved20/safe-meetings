@@ -13,13 +13,13 @@ yarn hardhat compile
 
 ### Deploy Smart Contract
     1) localhost
-    ```bash
-    yarn hardhat deploy
-    ```
+```bash
+yarn hardhat deploy
+```
     2) Mumbai (Polygon Testnest)
-    ```bash
-    yarn hardhat deploy --network Mumbai
-    ```
+```bash
+yarn hardhat deploy --network Mumbai
+```
 
 ### Clear up cache and artifacts
 ```bash
