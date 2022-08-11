@@ -5,7 +5,6 @@ import Header from "../components/Header";
 export default function viewRecords() {
   const Router = useRouter();
   const [records, setRecords] = useState([]);
-  function handleCardClick(record) {}
   useEffect(() => {
     async function getRecords() {
       const id = Router.query["_id"];
@@ -42,9 +41,10 @@ export default function viewRecords() {
                 className=" mb-5 px-20"
                 key={record["_id"]}
                 onClick={() => {
+                  record["privateKey"] = Router.query["privateKey"];
                   Router.push({
                     pathname: "/viewInfo",
-                    query: { record: record, company: Router.query },
+                    query: record,
                   });
                 }}
               >

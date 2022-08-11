@@ -1,23 +1,50 @@
+const crypto = require("crypto");
+
 function generatePair() {
-  const rsa = require("node-rsa");
-  var key = new rsa().generateKeyPair();
-  key.setOptions({ encryptionScheme: "pkcs1" });
-  var publicKey = key.exportKey("public");
-  var privateKey = key.exportKey("private");
-  return [publicKey, privateKey];
+  const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
+    modulusLength: 2048,
+  });
+  return [
+    publicKey.export({
+      type: "pkcs1",
+      format: "pem",
+    }),
+
+    privateKey.export({
+      type: "pkcs1",
+      format: "pem",
+    }),
+  ];
 }
-function encryptData(privateKey, value) {
-  const rsa = require("node-rsa");
-  var privateKey = new rsa();
-  privateKey.setOptions({ encryptionScheme: "pkcs1" });
-  privateKey.importKey(privateKey);
-  return privateKey.encryptPrivate(value, "base64");
+function encryptData(publicKey, data) {
+  const encryptedData = crypto.publicEncrypt(
+    {
+      key: publicKey,
+      oaepHash: "sha1",
+    },
+    Buffer.from(data)
+  );
+  return encryptedData;
 }
-function decryptData(publicKey, value) {
-  const rsa = require("node-rsa");
-  publicKey.setOptions({ encryptionScheme: "pkcs1" });
-  var publicKey = new rsa();
-  publicKey.importKey(publicKey);
-  return publicKey.decryptPublic(value, "utf8");
+
+function decryptData(privateKey, data) {
+  const decryptedData = crypto.privateDecrypt(
+    {
+      key: privateKey,
+      oaepHash: "sha1",
+    },
+    data
+  );
+  return decryptedData;
 }
+
 module.exports = { generatePair, encryptData, decryptData };
+// const data = generatePair();
+// const publicKey = data[0];
+// const privateKey = data[1];
+// const enc = encryptData(
+//   publicKey,
+//   "QmWmchBS9GCn2ukDNWkPVLCkwLL9xuaYX6wq1TSK6CLoLK"
+// ).toString("base64");
+// const dec = decryptData(privateKey, Buffer.from(enc, "base64"));
+// console.log(dec.toString());

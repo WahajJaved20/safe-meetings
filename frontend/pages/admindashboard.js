@@ -28,7 +28,13 @@ export default function userDashboard() {
       <Header />
       {listOfCompanies ? (
         <div className="ml-12 mt-4">
-          {listOfCompanies.map((company) => CompanyBox({ company: company }))}
+          {listOfCompanies.map((company) => {
+            return (
+              <div key={company["_id"]}>
+                <CompanyBox company={company} />
+              </div>
+            );
+          })}
         </div>
       ) : (
         <div>Loading</div>

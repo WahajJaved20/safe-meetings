@@ -132,10 +132,10 @@ export default function addRecords() {
       await updateChain(
         company["_id"],
         meetId,
-        encryptData(company["privateKey"], chairpersonName),
-        encryptData(company["privateKey"], formInput.date[0]),
+        encryptData(company["publicKey"], chairpersonName).toString("base64"),
+        encryptData(company["publicKey"], formInput.date[0]).toString("base64"),
         numberOfMembers,
-        encryptData(company["privateKey"], ImgHash),
+        encryptData(company["publicKey"], ImgHash).toString("base64"),
         members,
         roles
       );
