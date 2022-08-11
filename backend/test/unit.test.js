@@ -83,7 +83,7 @@ const { developmentChains } = require("../helper-hardhat-config");
           tx = await safeMeeting.storeContent(
             0,
             1,
-            "B",
+            "BKLSJFLKEMLKEJF.LS;LEFKEL=KNLKWDMALKDL;LWWWWWWWWWWWWWWWWWWWWWWWWWWWAWLDS,MA, ZX, DA.W;DKA;DM;AWKDAKWD=112N1KLJWLDNA S @#@#@$%%%%%%%%%%%%%%%%%%SDFNSLKJDALMD.A,MSD.",
             "1:2:3",
             1,
             "abcdefg",
@@ -93,7 +93,6 @@ const { developmentChains } = require("../helper-hardhat-config");
           await tx.wait(1);
           const recievedData = await safeMeeting.getMeetingData(0, 1);
 
-          assert.equal(recievedData.chairpersonName, "B");
           assert.equal(recievedData.timestamp, "1:2:3");
           assert.equal(recievedData.numberOfMembers.toString(), "1");
           assert.equal(recievedData.contentHash, "abcdefg");
